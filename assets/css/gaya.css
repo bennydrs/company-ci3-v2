@@ -1,0 +1,34 @@
+@media (min-width: 768px) {
+	.sidebar {
+		/* width: 60%; */
+		width: 17rem !important;
+		height: 25vh;
+		/* experiment with this value, try changing to 110vh */
+		min-height: 100vh;
+		overflow-y: auto;
+		overflow-x: hidden;
+		position: -webkit-sticky;
+		position: sticky;
+		top: 0;
+
+	}
+
+	.toggled{
+		height: 100%;
+		/* experiment with this value, try changing to 110vh */
+	
+	}
+
+	/* .side :hover {
+		overflow-y: visible;
+	} */
+
+	.sidebar .nav-item .nav-link {
+		padding-bottom: 10px;
+		padding-top: 10px;
+	}
+
+
+}
+
+
