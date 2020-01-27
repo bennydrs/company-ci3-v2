@@ -7,20 +7,22 @@
     <div class="row">
         <div class="col-lg-8">
             <?= $this->session->userdata('message'); ?>
-            <?= form_open_multipart('employee/edit/' . $user['e_id_number']); ?>
+            <?= form_open_multipart('employee/edit/' . $user['id']); ?>
 
             <div class="form-group row">
                 <label for="id" class="col-sm-2 col-form-label">NIP</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" value="<?= $user['e_id_number']; ?>" readonly>
+                    <input type="text" class="form-control" id="id" name="e_id_number" value="<?= $user['e_id_number']; ?>" readonly>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-10">
@@ -28,18 +30,21 @@
                     <?php echo form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Tempat Lahir</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="birth_place" name="birth_place" value="<?= $user['birth_place'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                 <div class="col-sm-10">
                     <input type="date" class="form-control" id="birth_date" name="birth_date" value="<?= $user['birth_date'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                 <div class="col-sm-10">
@@ -76,24 +81,28 @@
                     </select>
                 </div>
             </div>
+
             <!-- <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
             </div> -->
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">No Phone</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="no_phone" name="no_phone" value="<?= $user['no_phone'] ?>" data-mask="0000-0000-0000" data-mask-reverse="true">
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="address" name="address" rows="3" placeholder="Address"><?= $user['address'] ?></textarea>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Agama</label>
                 <div class="col-sm-10">
@@ -133,6 +142,7 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">No NPWP</label>
                 <div class="col-sm-10">
@@ -174,12 +184,14 @@
                     </div>
                 </div>
             </div>
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">Pendidikan</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="academic" name="academic" value="<?= $user['academic'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
                 <div class="col-sm-2">Picture</div>
                 <div class="col-sm-10">

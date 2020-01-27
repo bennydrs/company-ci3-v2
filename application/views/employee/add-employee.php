@@ -41,7 +41,7 @@
                     <div class="form-group row">
                         <label for="birth_date" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="birth_date" name="birth_date" placeholder="Masukkan tanggal lahir" value="<?= set_value('birth_date') ?>">
+                            <input type="date" class="form-control" id="birth_date" name="birth_date" placeholder="Masukkan tanggal lahir" value="<?= set_value('birth_date') ?>">
                             <?php echo form_error('birth_date', '<small class="text-danger pl-3">', '</small>'); ?>
                         </div>
                     </div>

@@ -56,7 +56,7 @@ class Employee extends CI_Controller
         } else {
             $this->employee->addEmployee();
 
-            $this->session->set_flashdata('message', 'New employee added');
+            $this->session->set_flashdata('message', 'Pegawai baru berhasil ditambah!');
             redirect('employee/index');
         }
     }
@@ -79,8 +79,8 @@ class Employee extends CI_Controller
 
     public function edit($id)
     {
-        $data['title'] = "Edit Employee";
-        $data['user'] = $this->db->get_where('employee', ['e_id_number' => $id])->row_array();
+        $data['title'] = "Edit Pegawai";
+        $data['user'] = $this->db->get_where('employee', ['id' => $id])->row_array();
         $data['position'] = $this->db->get_where('position')->result_array();
         $data['group'] = $this->db->get_where('group')->result_array();
 
@@ -94,25 +94,12 @@ class Employee extends CI_Controller
             $this->load->view('employee/edit', $data);
             $this->load->view('templates/footer');
         } else {
-            $id = $this->input->post('id');
+            // $id = $this->input->post('e_id_number');
             $name = $this->input->post('name');
-            $b_place = $this->input->post('birth_place');
-            $b_date = $this->input->post('birth_date');
-            $sex = $this->input->post('sex');
-            $status = $this->input->post('status');
-
             $no = $this->input->post('no_phone');
             $npwp = $this->input->post('no_npwp');
             $no_phone = str_replace("-", "", $no);
             $no_npwp = preg_replace('/\D/', '', $npwp);
-            // $no_npwp = str_replace(".", "-", "", $npwp);
-
-            $address = $this->input->post('address');
-            // $email = $this->input->post('email');
-            $religion = $this->input->post('religion');
-            $position = $this->input->post('position');
-            $group = $this->input->post('group');
-            $academic = $this->input->post('academic');
 
             //cek jika ada gambar yg diupload
             $upload_image = $_FILES['image']['name'];
@@ -140,21 +127,21 @@ class Employee extends CI_Controller
             }
 
             $this->db->set('name', $name);
-            $this->db->set('birth_place', $b_place);
-            $this->db->set('birth_date', $b_date);
-            $this->db->set('sex', $sex);
-            $this->db->set('status', $status);
+            $this->db->set('birth_place', $this->input->post('birth_place'));
+            $this->db->set('birth_date', $this->input->post('birth_date'));
+            $this->db->set('sex', $this->input->post('sex'));
+            $this->db->set('status', $this->input->post('status'));
             $this->db->set('no_phone', $no_phone);
-            $this->db->set('address', $address);
+            $this->db->set('address', $this->input->post('address'));
             $this->db->set('no_npwp', $no_npwp);
-            $this->db->set('religion', $religion);
-            $this->db->set('position_id', $position);
-            $this->db->set('group_id', $group);
-            $this->db->set('academic', $academic);
-            $this->db->where('e_id_number', $id);
+            $this->db->set('religion', $this->input->post('religion'));
+            $this->db->set('position_id', $this->input->post('position'));
+            $this->db->set('group_id', $this->input->post('group'));
+            $this->db->set('academic', $this->input->post('academic'));
+            $this->db->where('id', $id);
             $this->db->update('employee');
 
-            $this->session->set_flashdata('message', 'Employee has been updated!');
+            $this->session->set_flashdata('message', 'Data ' . $name . ' berhasil diubah!');
             if ($id == $this->session->userdata('e_id_number')) {
                 redirect('user');
             } else {
@@ -165,25 +152,26 @@ class Employee extends CI_Controller
 
     public function deleteEmployee($id)
     {
-        $this->db->where('e_id_number', $id);
-        $this->db->delete('employee');
-
-        $this->db->where('e_id_number', $id);
+        //hapus user
+        $this->db->where('id', $id);
         $this->db->delete('user');
 
-        $this->session->set_flashdata('message', 'Employee has been deleted!');
+        //hapus pegawai
+        $this->db->where('user_id', $id);
+        $this->db->delete('employee');
+
+        $this->session->set_flashdata('message', 'Data pegawai berhasil dihapus!');
         redirect('employee/index');
     }
 
-    public function printPDF()
-    {
-        $mpdf = new \Mpdf\Mpdf();
-        $data['employee'] = $this->employee->getEmployee();
-        $view = $this->load->view('Print/employeePDF', $data, TRUE);
-        $mpdf->WriteHTML($view);
-        // $mpdf->WriteHTML('besok libur');
-        $mpdf->Output();
-    }
+    // public function printPDF()
+    // {
+    //     $data['employee'] = $this->employee->getEmployee();
+    //     $view = $this->load->view('Print/employeePDF', $data, TRUE);
+    //     $mpdf->WriteHTML($view);
+    //     // $mpdf->WriteHTML('besok libur');
+    //     $mpdf->Output();
+    // }
 
     public function position()
     {
@@ -323,7 +311,7 @@ class Employee extends CI_Controller
     {
         $this->employee->addAbsent();
 
-        $this->session->set_flashdata('message', 'New absent added');
+        $this->session->set_flashdata('message', 'Absen baru ditambahkan!');
         redirect('employee/Absent');
     }
 
@@ -360,7 +348,7 @@ class Employee extends CI_Controller
         //     redirect('employee/editAbsent');
         // }
         $this->employee->editAbsent();
-        $this->session->set_flashdata('message', 'absent has been updated');
+        $this->session->set_flashdata('message', 'data absen berhasil ditambahkan!');
         redirect('employee/absent?month=' . $month);
     }
 
@@ -395,7 +383,7 @@ class Employee extends CI_Controller
         if ($name != $name_group_old) {
             $name_check = $this->db->get_where('group', ['name_group' => $name]);
             if ($name_check->num_rows() > 0) {
-                $this->session->set_flashdata('error', 'name group "' . $name . '" already exist');
+                $this->session->set_flashdata('error', 'nama golongan "' . $name . '" sudah ada!');
                 // $this->error['th_slug'] = 'Slug "' . $data['th_slug'] . '" sudah digunakan';
                 redirect('employee/group');
             }
@@ -427,14 +415,14 @@ class Employee extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function print_salary()
-    {
-        $mpdf = new \Mpdf\Mpdf();
+    // public function print_salary()
+    // {
+    //     $mpdf = new \Mpdf\Mpdf();
 
-        $data['salary'] = $this->employee->getIDSalary();
-        $view = $this->load->view('Print/salaryPDF', $data, TRUE);
-        $mpdf->WriteHTML($view);
-        // $mpdf->WriteHTML('besok libur');
-        $mpdf->Output();
-    }
+    //     $data['salary'] = $this->employee->getIDSalary();
+    //     $view = $this->load->view('Print/salaryPDF', $data, TRUE);
+    //     $mpdf->WriteHTML($view);
+    //     // $mpdf->WriteHTML('besok libur');
+    //     $mpdf->Output();
+    // }
 }

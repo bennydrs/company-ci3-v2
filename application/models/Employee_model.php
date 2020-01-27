@@ -9,9 +9,25 @@ class Employee_model extends CI_Model
         $no = $this->input->post('no_phone');
         $npwp = $this->input->post('no_npwp');
         $no_phone = str_replace("-", "", $no);
-        $no_npwp = str_replace(".", "-", "", $npwp);
+        $no_npwp = preg_replace('/\D/', '', $npwp);
+
+        $birth = $this->input->post('birth_date');
+        $password = date('dmy', strtotime($birth));
+        $user = array(
+            'e_id_number' => $this->input->post('e_id_number'),
+            'name' => htmlspecialchars($this->input->post('name', true)),
+            'email' => htmlspecialchars($email),
+            'password' => password_hash($password, PASSWORD_DEFAULT),
+            'role_id' => 2
+        );
+
+        //input user
+        $this->db->insert('user', $user);
+        $user_id =  $this->db->insert_id();
+
         $employee = [
             'e_id_number' => $this->input->post('e_id_number'),
+            'user_id' => $user_id,
             'name' => htmlspecialchars($this->input->post('name', true)),
             'birth_place' => $this->input->post('birth_place'),
             'birth_date' => $this->input->post('birth_date'),
@@ -29,18 +45,8 @@ class Employee_model extends CI_Model
             'image' => 'default.jpg'
         ];
 
-        $birth = $this->input->post('birth_date');
-        $password = date('dmy', strtotime($birth));
-        $user = array(
-            'e_id_number' => $this->input->post('e_id_number'),
-            'name' => htmlspecialchars($this->input->post('name', true)),
-            'email' => htmlspecialchars($email),
-            'password' => password_hash($password, PASSWORD_DEFAULT),
-            'role_id' => 2
-        );
-
+        //input pegawai
         $this->db->insert('employee', $employee);
-        $this->db->insert('user', $user);
     }
 
     public function getEmployeeById($e_id_number)
