@@ -39,7 +39,7 @@
             ?>
         </div>
 
-        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+        <table class="table table-hover absen" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr class="text-center">
                     <th scope="col">#</th>
@@ -50,7 +50,6 @@
                     <th scope="col">Izin</th>
                     <th scope="col">Alpha</th>
                     <th scope="col">Total</th>
-                    <th scope="col">Lembur</th>
                     <!-- <th scope="col">Action</th> -->
                 </tr>
             </thead>
@@ -58,15 +57,18 @@
                 <?php $i = 1; ?>
                 <?php foreach ($absent_r as $a) : ?>
                     <tr>
-                        <th scope="row"><?= $i;  ?></th>
+                        <td scope="row"><?= $i;  ?></td>
                         <td><?= $a['employee_id'] ?></td>
                         <td><?= $a['name'] ?></td>
                         <td><?= $a['name_position'] ?></td>
-                        <td class="text-center"><?= $a['present'] ?></td>
-                        <td class="text-center"><?= $a['permission'] ?></td>
+                        <td class="text-center p">
+                            <a href="#" class="present" data-type="text" data-pk="<?= $a['id'] ?>" data-url="<?= base_url('employee/edit_absen/' . $a['id']) ?>" data-name="present" data-title="Enter present"><?= $a['present'] ?></a>
+                        </td>
+                        <td class="text-center" id="izin"><?= $a['permission'] ?></td>
                         <td class="text-center"><?= $a['alpha'] ?></td>
-                        <td class="text-dark text-center"><?= $a['total_absent'] ?></td>
-                        <td class="text-center"><?= $a['lembur'] ?></td>
+                        <td class="text-dark text-center">
+                            <div id="jumlah"></div>
+                        </td>
                     </tr>
                     <?php $i++; ?>
                 <?php endforeach; ?>

@@ -49,6 +49,7 @@
 <script src="<?= base_url('assets/'); ?>jquerymask/jquery.mask.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>sweetalert/js/myscript.js"></script>
+<script src="<?= base_url('assets/'); ?>editable/js/bootstrap-editable.min.js"></script>
 
 <!-- input image -->
 <script>
@@ -143,7 +144,59 @@
     $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
+
+    // $(document).ready(function() {
+    //     /* Initialise the DataTable */
+    //     var oTable = $('#data').dataTable({
+    //         "oLanguage": {
+    //             "sSearch": "Cari:"
+    //         },
+    //         "iDisplayLength": 10,
+    //         "bJQueryUI": true,
+    //         "sPaginationType": "full_numbers",
+    //         "bFilter": true,
+    //     });
+
+    //     /* Add a select menu for each TH element in the table footer */
+    //     $("thead th").each(function(i) {
+    //         this.innerHTML = fnCreateSelect(oTable.fnGetColumnData(i));
+    //         $('select', this).change(function() {
+    //             oTable.fnFilter($(this).val(), i);
+    //         });
+    //     });
+    // });
+    $(document).ready(function() {
+        $('.present').editable({
+            validate: function(value) {
+                if ($.trim(value) == '') {
+                    return 'This field is required';
+                }
+                var regex = /^[0-9]+$/;
+                if (!regex.test(value)) {
+                    return 'Numbers only!';
+                }
+
+            }
+        });
+    });
 </script>
+
+<script>
+    $(function() {
+        $('.absen tbody tr').each(function() {
+            var pct = parseInt($('.p', this).text());
+
+            var winy = parseInt($('#izin', this).text());
+            // var losy = parseInt($('.data-l', this).text(), 10);
+
+            var jumlah = (pct) + (winy);
+            // $('.data-pct', this).text(pkt);
+            $('#jumlah', this).append(jumlah)
+
+        });
+    })
+</script>
+
 
 </body>
 

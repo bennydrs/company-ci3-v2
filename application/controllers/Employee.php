@@ -333,6 +333,15 @@ class Employee extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function edit_absen($id)
+    {
+        $absen = $this->input->get_post('value');
+
+        $this->db->set('present', $absen);
+        $this->db->where('id', $id);
+        $this->db->update('absent');
+    }
+
     public function prosesEditAbsent()
     {
         // $month = $this->uri->segment('3');
@@ -414,6 +423,8 @@ class Employee extends CI_Controller
         $this->load->view('employee/salary', $data);
         $this->load->view('templates/footer');
     }
+
+
 
     // public function print_salary()
     // {
