@@ -47,15 +47,15 @@
                 <table class="table" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">NIP</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Jabatan</th>
-                            <th scope="col">Hadir</th>
-                            <th scope="col">Izin</th>
-                            <th scope="col">Alpha</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Lembur</th>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col" class="text-center">NIP</th>
+                            <th scope="col" class="text-center">Nama</th>
+                            <th scope="col" class="text-center">Jabatan</th>
+                            <th scope="col" class="text-center">Hadir</th>
+                            <th scope="col" class="text-center">Izin</th>
+                            <th scope="col" class="text-center">Alpha</th>
+                            <th scope="col" class="text-center">Total Absen</th>
+                            <th scope="col" class="text-center">Lembur (m)</th>
                         </tr>
 
                     </thead>
@@ -71,11 +71,11 @@
                                 <td> <?= $a['e_id_number']; ?></td>
                                 <td> <?= $a['name']; ?></td>
                                 <td> <?= $a['name_position']; ?></td>
-                                <td><input type="text" class="form-control" max="31" id="present" name="present[]" value="0"></td>
-                                <td><input type="text" class="form-control" max="31" id="permission" name="permission[]" value="0"></td>
-                                <td><input type="text" class="form-control" max="31" id="alpha" name="alpha[]" value="0"></td>
-                                <td><input type="text" class="form-control readonly" max="31" id="total" name="total[]" value="0"></td>
-                                <td><input type="text" class="form-control" max="31" id="lembur" name="lembur[]" value="0"></td>
+                                <td><input type="number" class="form-control" max="31" id="present" name="present[]" value="0"></td>
+                                <td><input type="number" class="form-control" max="31" id="permission" name="permission[]" value="0"></td>
+                                <td><input type="number" class="form-control" max="31" id="alpha" name="alpha[]" value="0"></td>
+                                <td><input type="number" class="form-control readonly" max="31" id="total" name="total[]" value="0"></td>
+                                <td><input type="number" class="form-control" max="2400" id="lembur" name="lembur[]" value="0"></td>
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>

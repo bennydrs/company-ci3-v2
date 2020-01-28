@@ -176,7 +176,7 @@ class Employee_model extends CI_Model
                 "present" => $present[$key],
                 "permission" => $permission[$key],
                 "alpha" => $alpha[$key],
-                "total_absent" => $total[$key],
+                // "total_absent" => $total[$key],
                 "lembur" => $lembur[$key],
                 "month" => $month[$key]
             );
@@ -194,14 +194,14 @@ class Employee_model extends CI_Model
                 "present" => $present[$key],
                 "permission" => $permission[$key],
                 "alpha" => $alpha[$key],
-                "total_absent" => $total[$key],
+                // "total_absent" => $total[$key],
                 "lembur" => $lembur[$key],
                 "month" => $value
             );
 
 
             $this->db->set('lembur', $data['lembur']);
-            $this->db->set('total_absent', $data['total_absent']);
+            // $this->db->set('total_absent', $data['total_absent']);
             $this->db->set('permission', $data['permission']);
             $this->db->set('alpha', $data['alpha']);
             $this->db->set('present', $data['present']);

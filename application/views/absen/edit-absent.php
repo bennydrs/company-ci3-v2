@@ -50,7 +50,7 @@
                                 Please check data absent. Total absent dont more than 31
                             </div>
                         </td>
-                        <td><input type="number" class="form-control" name="lembur[]" max="26" id="lembur" value="<?= $a['lembur']; ?>"></td>
+                        <td><input type="number" class="form-control" name="lembur[]" max="2400" id="lembur" value="<?= $a['lembur']; ?>"></td>
                     </tr>
                     <?php $i++; ?>
                 <?php endforeach; ?>
