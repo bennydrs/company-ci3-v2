@@ -425,6 +425,27 @@ class Employee extends CI_Controller
     }
 
 
+    public function export_pegawai_pdf()
+    {
+        $data['pegawai'] = $this->employee->getEmployee();
+
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "data-pegawai.pdf";
+        $this->pdf->load_view('export/pegawai_pdf', $data);
+    }
+
+    public function export_salary_pdf_one()
+    {
+        $data['salary'] = $this->employee->getIDSalary();
+
+        $this->load->library('pdf');
+
+        $this->pdf->setPaper('A4', 'potrait');
+        $this->pdf->filename = "slip-gaji.pdf";
+        $this->pdf->load_view('export/slip_gaji_pdf', $data);
+    }
 
     // public function print_salary()
     // {

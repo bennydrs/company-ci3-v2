@@ -96,7 +96,7 @@
                                                             <td class="text-dark"><?= rupiah($total); ?></td>
 
                                                             <td>
-                                                                <a href="<?= base_url('employee/print_Salary/') . $a['id']; ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="bottom" title="Print"><i class="fas fa-fw fa-print"></i></a>
+                                                                <a href="<?= base_url('employee/export_salary_pdf_one/') . $a['id']; ?>" class="badge badge-primary" data-toggle="tooltip" data-placement="bottom" title="Print"><i class="fas fa-fw fa-print"></i></a>
                                                             </td>
                                                         </tr>
                                                         <?php $i++; ?>

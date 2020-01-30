@@ -14,7 +14,7 @@
         <div class="col-lg">
             <!-- <?= form_error('email', '<div class="alert alert-danger" role="alert">', '</div>');  ?> -->
             <a href="<?= base_url('employee/addemployee'); ?>" class="btn btn-primary mb-3">Tambah Pegawai</a>
-            <a href="<?= base_url('employee/printPDF'); ?> " class="btn btn-warning mb-3" target="_blank">Cetak</a>
+            <a href="<?= base_url('employee/export_pegawai_pdf'); ?> " class="btn btn-warning mb-3" target="_blank">Export</a>
 
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
