@@ -50,17 +50,17 @@
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>sweetalert/js/myscript.js"></script>
 <script src="<?= base_url('assets/'); ?>editable/js/bootstrap-editable.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/ckeditor.js"></script>
 
-<!-- input image -->
 <script>
+    // input image
     $('.custom-file-input').on('change', function() {
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
-</script>
 
-<!-- change access -->
-<script>
+
+    // change access
     $('.form-check-input').on('click', function() {
         const menuId = $(this).data('menu');
         const roleId = $(this).data('role');
@@ -80,15 +80,14 @@
 </script>
 
 <script>
+    // Format mata uang.
     $(document).ready(function() {
-        // Format mata uang.
         $('.money').mask('000.000.000', {
             reverse: true
         });
 
     })
 </script>
-
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -108,20 +107,9 @@
             });
         }, false);
     })();
-</script>
 
-<!-- count absent realtime -->
-<script>
-    // $(".count").keyup(function() {
-    //     var present = parseInt($("#present").val())
-    //     var permission = parseInt($("#permission").val())
-    //     var alpha = parseInt($("#alpha").val())
 
-    //     var total = present + permission + alpha;
-    //     // $("#total").attr("value", total);
-    //     $("#total").attr("value", total);
-    // });
-
+    // <!-- count absent realtime -->
     (function() {
         "use strict";
 
@@ -195,6 +183,12 @@
 
         });
     })
+
+    ClassicEditor
+        .create(document.querySelector('#content-info'))
+        .catch(error => {
+            console.error(error);
+        });
 </script>
 
 

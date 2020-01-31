@@ -37,6 +37,7 @@ class Auth extends CI_Controller
             //cek password
             if (password_verify($password, $user['password'])) {
                 $data = array(
+                    'id' => $user['id'],
                     'e_id_number' => $user['e_id_number'],
                     'role_id' => $user['role_id']
                 );

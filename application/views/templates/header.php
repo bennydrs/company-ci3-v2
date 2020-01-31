@@ -20,7 +20,11 @@
     <link href="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>css/gaya.css" rel="stylesheet">
     <link href="<?= base_url('assets/'); ?>editable/css/bootstrap-editable.css" rel="stylesheet" />
-
+    <style>
+        .ck-editor__editable {
+            min-height: 300px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
