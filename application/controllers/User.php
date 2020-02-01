@@ -11,7 +11,7 @@ class User extends CI_Controller
 
     public function index()
     {
-        $data['title'] = "My Profile";
+        $data['title'] = "Dashboard";
         // $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
         $this->load->model('Employee_model');
         $data['user'] = $this->Employee_model->getEmployeeByUser();
@@ -20,6 +20,19 @@ class User extends CI_Controller
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('user/index', $data);
+        $this->load->view('templates/footer');
+    }
+    public function profil()
+    {
+        $data['title'] = "My Profile";
+        // $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
+        $this->load->model('Employee_model');
+        $data['user'] = $this->Employee_model->getEmployeeByUser();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/profil', $data);
         $this->load->view('templates/footer');
     }
 

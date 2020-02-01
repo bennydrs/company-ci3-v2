@@ -33,7 +33,7 @@ class Employee extends CI_Controller
         $data['position'] = $this->db->get_where('position')->result_array();
         $data['group'] = $this->db->get_where('group')->result_array();
 
-        $this->form_validation->set_rules('e_id_number', 'Employee ID Number', 'required|trim|is_unique[employee.e_id_number]', array('is_unique' => 'This ID has already registered'));
+        $this->form_validation->set_rules('e_id_number', 'Employee ID Number', 'required|trim|min_length[5]|is_unique[employee.e_id_number]', array('is_unique' => 'This ID has already registered'));
         $this->form_validation->set_rules('name', 'Name', 'required|trim');
         $this->form_validation->set_rules('birth_place', 'Birth Place', 'required|trim');
         $this->form_validation->set_rules('birth_date', 'Birth Date', 'required|trim');
