@@ -7,7 +7,6 @@ class Info extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Information_model', 'info');
-        $this->load->helper('text');
         is_logged_in();
     }
 

@@ -6,7 +6,6 @@ class Employee extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library('form_validation');
         $this->load->library('pdf');
         $this->load->model('Employee_model', 'employee');
         is_logged_in();

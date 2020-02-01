@@ -6,15 +6,18 @@ class User extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('Employee_model');
+        $this->load->model('Information_model', 'info');
         is_logged_in();
     }
 
     public function index()
     {
-        $data['title'] = "Dashboard";
+        $data['title'] = "Home";
         // $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
-        $this->load->model('Employee_model');
+
         $data['user'] = $this->Employee_model->getEmployeeByUser();
+        $data['info'] = $this->info->getInformation();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -22,11 +25,11 @@ class User extends CI_Controller
         $this->load->view('user/index', $data);
         $this->load->view('templates/footer');
     }
+
     public function profil()
     {
         $data['title'] = "My Profile";
         // $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
-        $this->load->model('Employee_model');
         $data['user'] = $this->Employee_model->getEmployeeByUser();
 
         $this->load->view('templates/header', $data);
@@ -152,5 +155,19 @@ class User extends CI_Controller
                 }
             }
         }
+    }
+
+    public function show_info($id)
+    {
+        $this->load->model('information_model', 'info');
+        $data['title'] = 'Isi Info';
+        $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
+        $data['info'] = $this->info->getInformationById($id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/show_info', $data);
+        $this->load->view('templates/footer');
     }
 }
