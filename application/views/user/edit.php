@@ -7,56 +7,56 @@
     <div class="row">
         <div class="col-lg-8">
             <?= $this->session->userdata('message'); ?>
-            <?= form_open_multipart('user/edit'); ?>
+            <?= form_open_multipart('user/edit/' . $user['id']); ?>
 
-            <div class="form-group row">
-                <label for="id" class="col-sm-2 col-form-label">NIP</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="id" name="id" value="<?= $user['e_id_number']; ?>">
-                </div>
-            </div>
+
+            <input type="hidden" class="form-control" id="id" name="e_id_number" value="<?= $user['e_id_number']; ?>" readonly>
+
+
             <div class="form-group row">
                 <label for="email" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>">
+                    <input type="text" class="form-control" id="email" name="email" value="<?= $user['email']; ?>" readonly>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Full Name</label>
+                <label for="name" class="col-sm-2 col-form-label">Nama Lengkap</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>">
+                    <input type="text" class="form-control" id="name" name="name" value="<?= $user['name']; ?>" required>
                     <?php echo form_error('name', '<small class="text-danger pl-3">', '</small>'); ?>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Birth Place</label>
+                <label for="name" class="col-sm-2 col-form-label">Tempat Lahir</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="birth_place" name="birth_place" value="<?= $user['birth_place'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Birth date</label>
+                <label for="name" class="col-sm-2 col-form-label">Tanggal Lahir</label>
                 <div class="col-sm-10">
                     <input type="date" class="form-control" id="birth_date" name="birth_date" value="<?= $user['birth_date'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Sex</label>
+                <label for="name" class="col-sm-2 col-form-label">Jenis Kelamin</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="sex" id="sex">
-                        <option value="">Choose Sex...</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
+                        <option value="">Pilih jenis kelamin...</option>
                         <option <?php
-                                if ($user['sex'] == 'Male') {
+                                if ($user['sex'] == 'Laki-Laki') {
                                     echo "selected";
                                 }
-                                ?> value="Male">Male</option>
+                                ?> value="Laki-Laki">Laki-Laki</option>
                         <option <?php
-                                if ($user['sex'] == 'Female') {
+                                if ($user['sex'] == 'Perempuan') {
                                     echo "selected";
                                 }
-                                ?> value="Female">Female</option>
+                                ?> value="Perempuan">Perempuan</option>
                     </select>
                 </div>
             </div>
@@ -66,41 +66,45 @@
                 <div class="col-sm-10">
                     <select class="form-control" name="status" id="status">
                         <option <?php
-                                if ($user['status'] == 'Married') {
+                                if ($user['status'] == 'Menikah') {
                                     echo "selected";
                                 }
-                                ?> value="Married">Married</option>
+                                ?> value="Menikah">Menikah</option>
                         <option <?php
-                                if ($user['status'] == 'Single') {
+                                if ($user['status'] == 'Belum Menikah') {
                                     echo "selected";
                                 }
-                                ?> value="Single">Single</option>
+                                ?> value="Belum Menikah">Belum Menikah</option>
                     </select>
                 </div>
             </div>
+
             <!-- <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label">Email</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="email" name="email" placeholder="Email">
                 </div>
             </div> -->
+
             <div class="form-group row">
                 <label for="name" class="col-sm-2 col-form-label">No Phone</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="no_phone" name="no_phone" data-mask="0000-0000-0000" data-mask-reverse="true" value="<?= $user['no_phone'] ?>">
+                    <input type="text" class="form-control" id="no_phone" name="no_phone" value="<?= $user['no_phone'] ?>" data-mask="0000-0000-0000" data-mask-reverse="true">
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Address</label>
+                <label for="name" class="col-sm-2 col-form-label">Alamat</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" id="address" name="address" rows="3" placeholder="Address"><?= $user['address'] ?></textarea>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Religion</label>
+                <label for="name" class="col-sm-2 col-form-label">Agama</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="religion">
-                        <option value="">Choose Religion...</option>
+                        <option value="">Pilih agama...</option>
 
                         <option <?php
                                 if ($user['religion'] == 'Islam') {
@@ -135,17 +139,18 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="no_npwp" class="col-sm-2 col-form-label">No NPWP</label>
+                <label for="name" class="col-sm-2 col-form-label">No NPWP</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="no_npwp" name="no_npwp" data-mask="00.000.000.0-000.000" data-mask-reverse="true" value="<?= $user['no_npwp'] ?>">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Position</label>
+                <label for="name" class="col-sm-2 col-form-label">Jabatan</label>
                 <div class="col-sm-10">
                     <select class="form-control" name="position">
-                        <option value="">Choose Position...</option>
+                        <option value="">Pilih Jabatan...</option>
                         <?php foreach ($position as $p) : ?>
                             <?php if ($p['id'] == $user['position_id']) : ?>
                                 <option value="<?= $p['id']; ?>" selected><?= $p['name_position']; ?></option>
@@ -156,12 +161,34 @@
                     </select>
                 </div>
             </div>
+
             <div class="form-group row">
-                <label for="name" class="col-sm-2 col-form-label">Academic</label>
+                <label for="name" class="col-sm-2 col-form-label">Golongan</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="group">
+                        <option value="">Pilih golongan...</option>
+                        <?php foreach ($group as $p) : ?>
+                            <?php if ($p['id'] == $user['group_id']) : ?>
+                                <option value="<?= $p['id']; ?>" selected><?= $p['name_group']; ?></option>
+                            <?php else : ?>
+                                <option value="<?= $p['id']; ?>"><?= $p['name_group']; ?></option>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </select>
+                    <?php echo form_error('group', '<small class="text-danger">', '</small>'); ?>
+                    <div class="invalid-feedback">
+                        Golongan harus diisi!
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="name" class="col-sm-2 col-form-label">Pendidikan</label>
                 <div class="col-sm-10">
                     <input type="text" class="form-control" id="academic" name="academic" value="<?= $user['academic'] ?>">
                 </div>
             </div>
+
             <div class="form-group row">
                 <div class="col-sm-2">Picture</div>
                 <div class="col-sm-10">
@@ -181,7 +208,8 @@
 
             <div class="form-group row justify-content-end">
                 <div class="col-sm-10">
-                    <button class="btn btn-primary">Edit</button>
+                    <button class="btn btn-success">Ubah</button>
+                    <a href="<?= base_url('employee') ?>" class="btn btn-warning">Batal</a>
                 </div>
             </div>
 

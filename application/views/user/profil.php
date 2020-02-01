@@ -4,11 +4,9 @@
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
 
-    <div class="row">
-        <div class="col-lg-8">
-            <?= $this->session->userdata('message'); ?>
-        </div>
-    </div>
+    <div class="flash-data" data-flashdata="<?= $this->session->flashdata('message'); ?>"></div>
+    <?php if ($this->session->flashdata('message')) : ?>
+    <?php endif; ?>
 
     <div class="card shadow mb-3" style="max-width: 1000px;">
         <div class="row no-gutters">
@@ -113,7 +111,7 @@
                     </div>
                     <p class="card-text"><small class="text-muted">Masuk Sejak <?= date('d F Y', strtotime($user['date_join'])) ?></small></p>
 
-                    <a href="<?= base_url('employee/edit/'.$user['e_id_number']) ?>" class="btn btn-success btn-md">Ubah Profil</a>
+                    <a href="<?= base_url('user/edit/' . $user['id']) ?>" class="btn btn-success btn-md">Ubah Profil</a>
                 </div>
             </div>
         </div>
