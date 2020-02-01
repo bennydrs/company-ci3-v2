@@ -50,7 +50,8 @@
                                                     <th scope="col">Position</th>
                                                     <th scope="col">Group</th>
                                                     <th scope="col">Salary</th>
-                                                    <th scope="col">Tj. S/I</th>
+                                                    <th scope="col">Tunjangan</th>
+                                                    <th scope="col">Uang Makan</th>
                                                     <th scope="col">Lembur</th>
                                                     <th scope="col">Pendapatan</th>
                                                     <th scope="col">Potongan</th>
@@ -70,8 +71,9 @@
 
                                                     $total_absen = $a['present'] + $a['permission'] + $a['alpha'];
                                                     $total_lembur = $a['overtime'] * $a['lembur'];
+                                                    $uang_makan = $a['meal'] * $a['present'];
 
-                                                    $pendapatan = $a['salary'] + $a['tj_married'] + $total_lembur;
+                                                    $pendapatan = $a['salary'] + $a['tj_married'] + $total_lembur + $uang_makan;
 
                                                     $alpha_cut = $a['alpha'] * $a['alpha_cuts'];
                                                     // $permission_cut = $a['permission'] * $a['permission_cuts'];
@@ -90,6 +92,7 @@
                                                             <td><?= $a['name_group'] ?></td>
                                                             <td><?= rupiah($a['salary']) ?></td>
                                                             <td><?= rupiah($a['tj_married']) ?></td>
+                                                            <td><?= rupiah($uang_makan) ?></td>
                                                             <td><?= rupiah($total_lembur); ?></td>
                                                             <td><?= rupiah($pendapatan); ?></td>
                                                             <td><?= rupiah($alpha_cut); ?></td>
