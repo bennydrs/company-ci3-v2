@@ -120,3 +120,37 @@
 
 </div>
 <!-- End of Main Content -->
+
+
+
+<script>
+    // editable
+    $(document).ready(function() {
+        $('.present').editable({
+            validate: function(value) {
+                if ($.trim(value) == '') {
+                    return 'This field is required';
+                }
+                var regex = /^[0-9]+$/;
+                if (!regex.test(value)) {
+                    return 'Numbers only!';
+                }
+
+            }
+        });
+    });
+
+    // auto count
+    $(document).ready(function() {
+        $('.absen tbody tr').each(function() {
+            var pct = parseInt($('.p', this).text());
+
+            var winy = parseInt($('#izin', this).text());
+            // var losy = parseInt($('.data-l', this).text(), 10);
+
+            var jumlah = (pct) + (winy);
+            // $('.data-pct', this).text(pkt);
+            $('#jumlah', this).append(jumlah)
+        });
+    })
+</script>

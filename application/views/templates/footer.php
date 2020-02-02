@@ -39,18 +39,15 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script src="<?= base_url('assets/'); ?>vendor/jquery/jquery.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
 <script src="<?= base_url('assets/'); ?>sweetalert/js/sweetalert2.all.min.js"></script>
-<script src="<?= base_url('assets/'); ?>jquerymask/jquery.mask.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
 <script src="<?= base_url('assets/'); ?>sweetalert/js/myscript.js"></script>
 <script src="<?= base_url('assets/'); ?>editable/js/bootstrap-editable.min.js"></script>
-<script src="<?= base_url('assets/'); ?>js/ckeditor.js"></script>
 
 <script>
     // input image
@@ -58,36 +55,8 @@
         let fileName = $(this).val().split('\\').pop();
         $(this).next('.custom-file-label').addClass("selected").html(fileName);
     });
-
-
-    // change access
-    $('.form-check-input').on('click', function() {
-        const menuId = $(this).data('menu');
-        const roleId = $(this).data('role');
-
-        $.ajax({
-            url: "<?= base_url('admin/changeaccess'); ?>",
-            type: "post",
-            data: {
-                menuId: menuId,
-                roleId: roleId
-            },
-            success: function() {
-                document.location.href = "<?= base_url('admin/roleaccess/'); ?>" + roleId;
-            }
-        });
-    });
 </script>
 
-<script>
-    // Format mata uang.
-    $(document).ready(function() {
-        $('.money').mask('000.000.000', {
-            reverse: true
-        });
-
-    })
-</script>
 <script>
     // Example starter JavaScript for disabling form submissions if there are invalid fields
     (function() {
@@ -107,25 +76,6 @@
             });
         }, false);
     })();
-
-
-    // <!-- count absent realtime -->
-    (function() {
-        "use strict";
-
-        $("table").on("change", "input", function() {
-            var row = $(this).closest("tr");
-            var qty = parseFloat(row.find("#present").val());
-            var price = parseFloat(row.find("#permission").val());
-            var x = parseFloat(row.find("#alpha").val());
-            var total = qty + price + x;
-            row.find("#total").val(isNaN(total) ? "" : total);
-        });
-    })();
-
-    $(".readonly").on('keydown paste', function(e) {
-        e.preventDefault();
-    });
 </script>
 
 <script>
@@ -153,43 +103,8 @@
     //         });
     //     });
     // });
-    $(document).ready(function() {
-        $('.present').editable({
-            validate: function(value) {
-                if ($.trim(value) == '') {
-                    return 'This field is required';
-                }
-                var regex = /^[0-9]+$/;
-                if (!regex.test(value)) {
-                    return 'Numbers only!';
-                }
-
-            }
-        });
-    });
 </script>
 
-<script>
-    $(function() {
-        $('.absen tbody tr').each(function() {
-            var pct = parseInt($('.p', this).text());
-
-            var winy = parseInt($('#izin', this).text());
-            // var losy = parseInt($('.data-l', this).text(), 10);
-
-            var jumlah = (pct) + (winy);
-            // $('.data-pct', this).text(pkt);
-            $('#jumlah', this).append(jumlah)
-
-        });
-    })
-
-    ClassicEditor
-        .create(document.querySelector('#content-info'))
-        .catch(error => {
-            console.error(error);
-        });
-</script>
 
 
 </body>

@@ -144,7 +144,7 @@ class Employee extends CI_Controller
             if ($id == $this->session->userdata('e_id_number')) {
                 redirect('user');
             } else {
-                redirect('employee/index');
+                redirect('employee');
             }
         }
     }

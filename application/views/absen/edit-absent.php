@@ -70,3 +70,23 @@
 
 </div>
 <!-- End of Main Content -->
+
+<script>
+    // <!-- count absent realtime -->
+    (function() {
+        "use strict";
+
+        $("table").on("change", "input", function() {
+            var row = $(this).closest("tr");
+            var qty = parseFloat(row.find("#present").val());
+            var price = parseFloat(row.find("#permission").val());
+            var x = parseFloat(row.find("#alpha").val());
+            var total = qty + price + x;
+            row.find("#total").val(isNaN(total) ? "" : total);
+        });
+    })();
+
+    $(".readonly").on('keydown paste', function(e) {
+        e.preventDefault();
+    });
+</script>

@@ -226,3 +226,4 @@
 
 </div>
 <!-- End of Main Content -->
+<?php $this->load->view('templates/load/load_mask'); ?>
