@@ -131,9 +131,6 @@
                             <p><?= $employee['academic']; ?></p>
                         </div>
                     </div>
-
-
-
                     <p class="card-text"><small class="text-muted">Masuk sejak <?= date('d F Y', strtotime($employee['date_join'])) ?></small></p>
                 </div>
             </div>

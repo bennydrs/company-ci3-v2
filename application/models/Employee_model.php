@@ -291,4 +291,14 @@ class Employee_model extends CI_Model
 
         return $this->db->query($query)->row_array();
     }
+
+    public function absenChart()
+    {
+        $query = "SELECT month, SUM(present) as present, SUM(permission) as permission, SUM(alpha) as alpha
+            FROM absent 
+            WHERE SUBSTRING(month,1,4) = date('Y')
+            GROUP BY month
+            ";
+        return $this->db->query($query)->result_array();
+    }
 }

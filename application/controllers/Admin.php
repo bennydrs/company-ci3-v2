@@ -15,6 +15,16 @@ class Admin extends CI_Controller
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
         $data['jlh_employee']  = $this->db->get('employee')->num_rows();
         $data['jlh_position']  = $this->db->get('position')->num_rows();
+        $this->load->model('employee_model', 'employee');
+        // $data['absen'] = $this->employee->get();
+        $absen = $this->employee->absenChart();
+        $data['absen'] = [];
+        if (count($absen) > 0) {
+            foreach ($absen as $a) {
+                $data['absen'][] = $a;
+            }
+        }
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
