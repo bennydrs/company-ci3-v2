@@ -18,7 +18,6 @@ class Employee extends CI_Controller
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
 
         // $data['employee'] = $this->employee->getEmployee();
-        // $data['position'] = $this->employee->get_position();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -292,7 +291,7 @@ class Employee extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addAbsent()
+    public function addAbsent($id)
     {
         $data['title'] = "Tambah Absen";
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
@@ -320,7 +319,6 @@ class Employee extends CI_Controller
 
     public function editAbsent()
     {
-
         $data['title'] = "Edit Absen";
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
         $month = $this->uri->segment(3);
@@ -336,13 +334,23 @@ class Employee extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function edit_absen($id)
+    public function edit_absen($id) //editable
     {
         $absen = $this->input->get_post('value');
 
         $this->db->set('present', $absen);
         $this->db->where('id', $id);
         $this->db->update('absent');
+    }
+
+    public function editAbsentById($id)
+    {
+        $month = $this->input->post('month');
+        $name = $this->input->post('name');
+        $this->employee->editAbsentById($id);
+
+        $this->session->set_flashdata('message', 'data absen ' . $name . ' berhasil diubah!');
+        redirect('employee/absent?month=' . $month);
     }
 
     public function prosesEditAbsent()

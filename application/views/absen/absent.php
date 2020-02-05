@@ -61,7 +61,7 @@
                                         <th scope="col">Total Absen</th>
                                         <th scope="col">Lembur (m)</th>
                                         <th scope="col">Lembur (j)</th>
-                                        <!-- <th scope="col">Action</th> -->
+                                        <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -90,19 +90,22 @@
                                                 echo $h;
                                                 ?>
                                             </td>
+                                            <td class="text-center">
+                                                <a href="" class="badge badge-success" data-toggle="modal" data-target="#exampleModal<?= $a['id'] ?>">Edit</a>
+                                            </td>
                                         </tr>
                                         <?php $i++; ?>
                                     <?php endforeach; ?>
                                 </tbody>
                                 <?php if ($absent_n > 0) : ?>
                                     <tr>
-                                        <td colspan="11">
+                                        <td colspan="12">
                                             <a href="<?= base_url('employee/editAbsent/') . $month; ?>" class="btn btn-success">Edit Data Absen</a>
                                         </td>
                                     </tr>
                                 <?php else : ?>
                                     <tr>
-                                        <td colspan="9" class="text-center">
+                                        <td colspan="12" class="text-center">
                                             Untuk menampilkan data absen, silahkan pilih bulan dan tahun!
                                         </td>
                                     </tr>
@@ -123,8 +126,113 @@
 </div>
 <!-- End of Main Content -->
 
+<!-- Modal -->
+<?php foreach ($absent_r as $a) : ?>
+    <div class="modal fade" id="exampleModal<?= $a['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ubah Absen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="<?= base_url('employee/editAbsentById/' . $a['id']) ?>" method="post">
+                    <div class="modal-body" id="s">
+                        <input type="hidden" name="month" value="<?= $a['month']; ?>">
 
+                        <div class="form-group row">
+                            <label for="present" class="col-sm-3 col-form-label">NIP</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="employee_id" class="form-control" value="<?= $a['employee_id']; ?>" readonly>
+                            </div>
+                        </div>
 
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-3 col-form-label">Nama</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="name" class="form-control" id="name" value="<?= $a['name']; ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="position" class="col-sm-3 col-form-label">Jabatan</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="position" class="form-control" id="position" value="<?= $a['name_position']; ?>" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="present" class="col-sm-3 col-form-label">Hadir</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="present" max="26" id="present" value="<?= $a['present']; ?>" require>
+                                <div class="invalid-feedback">
+                                    The present field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="permission" class="col-sm-3 col-form-label">Izin</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="permission" max="26" id="permission" value="<?= $a['permission']; ?>">
+                                <div class="invalid-feedback">
+                                    The permission field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="sick" class="col-sm-3 col-form-label">Sakit</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="sick" max="26" id="sick" value="<?= $a['sick']; ?>">
+                                <div class="invalid-feedback">
+                                    The sick field is required!
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="alpha" class="col-sm-3 col-form-label">Alpha</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="alpha" max="26" id="alpha" value="<?= $a['alpha']; ?>">
+                                <div class="invalid-feedback">
+                                    The alpha field is required!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="total" class="col-sm-3 col-form-label">Total</label>
+                            <div class="col-sm-9">
+                                <?php $total = $a['present'] + $a['permission'] + $a['alpha'] ?>
+                                <input type="number" class="form-control readonly" name="total" max="26" value="<?= $total; ?>" id="total">
+                                <div class="invalid-feedback">
+                                    Please check data absent. Total absent dont more than 31
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="lembur" class="col-sm-3 col-form-label">Lembur</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="lembur" max="2400" id="lembur" value="<?= $a['lembur']; ?>">
+                                <div class="invalid-feedback">
+                                    The lembur field is required!
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <input type="submit" class="btn btn-success" value="Simpan Edit" name="save"> -->
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<?php endforeach; ?>
 <script>
     // editable
     $(document).ready(function() {
@@ -155,4 +263,25 @@
             $('#jumlah', this).append(jumlah)
         });
     })
+</script>
+
+<script>
+    // <!-- count absent realtime -->
+    (function() {
+        "use strict";
+
+        $("form").on("change", "input", function() {
+            var row = $(this).closest("#s");
+            var present = parseFloat(row.find("#present").val());
+            var permission = parseFloat(row.find("#permission").val());
+            var sick = parseFloat(row.find("#sick").val());
+            var alpha = parseFloat(row.find("#alpha").val());
+            var total = present + permission + sick + alpha;
+            row.find("#total").val(isNaN(total) ? "" : total);
+        });
+    })();
+
+    $(".readonly").on('keydown paste', function(e) {
+        e.preventDefault();
+    });
 </script>

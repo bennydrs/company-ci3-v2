@@ -3,12 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Employee_model extends CI_Model
 {
-    public function get_position()
-    { //ambil data kategori dari table kategori
-        $result = $this->db->get('position');
-        return $result;
-    }
-
     public function getEmployee()
     {
         //ambil data barang dari table barang yang akan di generate ke datatable
@@ -232,6 +226,23 @@ class Employee_model extends CI_Model
             $this->db->where('id', $data['id']);
             $this->db->update('absent', $data);
         }
+    }
+
+    public function editAbsentById($id)
+    {
+        $present = $this->input->post('present');
+        $permission = $this->input->post('permission');
+        $sick = $this->input->post('sick');
+        $alpha = $this->input->post('alpha');
+        $lembur = $this->input->post('lembur');
+
+        $this->db->set('present', $present);
+        $this->db->set('permission', $permission);
+        $this->db->set('sick', $sick);
+        $this->db->set('alpha', $alpha);
+        $this->db->set('lembur', $lembur);
+        $this->db->where('id', $id);
+        $this->db->update('absent');
     }
 
     public function addGroup()
