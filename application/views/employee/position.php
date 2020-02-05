@@ -43,8 +43,8 @@
                                         <td><?= rupiah($p['salary']) ?></td>
 
                                         <td>
-                                            <a href="" data-toggle="modal" data-target="#editPositionModal<?= $p['id'];  ?>" class="badge badge-success">Edit</a>
-                                            <a href="<?= base_url('employee/delete_position/') . $p['id']; ?>" class="badge badge-danger delete">Delete</a>
+                                            <a href="" data-toggle="modal" data-target="#editPositionModal<?= $p['id_position'];  ?>" class="badge badge-success">Edit</a>
+                                            <a href="<?= base_url('employee/delete_position/') . $p['id_position']; ?>" class="badge badge-danger delete">Delete</a>
                                         </td>
                                     </tr>
                                     <?php $i++; ?>
@@ -105,7 +105,7 @@
 
 <!-- modal edit -->
 <?php foreach ($position as $p) : ?>
-    <div class="modal fade" id="editPositionModal<?= $p['id'];  ?>" tabindex="-1" role="dialog" aria-labelledby="editPositionModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editPositionModal<?= $p['id_position'];  ?>" tabindex="-1" role="dialog" aria-labelledby="editPositionModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -116,7 +116,7 @@
                 </div>
                 <form action="<?= base_url('employee/edit_position'); ?>" method="post" novalidate>
                     <div class="modal-body">
-                        <input type="hidden" name="id" id="id" value="<?= $p['id']; ?>">
+                        <input type="hidden" name="id" id="id" value="<?= $p['id_position']; ?>">
                         <input type="hidden" name="name_position_old" id="name_position_old" value="<?= $p['name_position']; ?>">
                         <div class="form-group">
                             <input type="text" class="form-control" id="name_position" name="name_position" value="<?= $p['name_position']; ?>">

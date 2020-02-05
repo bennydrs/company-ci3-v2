@@ -56,6 +56,7 @@
                                         <th scope="col">Jabatan</th>
                                         <th scope="col">Hadir</th>
                                         <th scope="col">Izin</th>
+                                        <th scope="col">Sakit</th>
                                         <th scope="col">Alpha</th>
                                         <th scope="col">Total Absen</th>
                                         <th scope="col">Lembur (m)</th>
@@ -75,6 +76,7 @@
                                                 <a href="#" class="present" data-type="text" data-pk="<?= $a['id'] ?>" data-url="<?= base_url('employee/edit_absen/' . $a['id']) ?>" data-name="present" data-title="Enter present"><?= $a['present'] ?></a>
                                             </td>
                                             <td class="text-center" id="izin"><?= $a['permission'] ?></td>
+                                            <td class="text-center" id="sakit"><?= $a['sick'] ?></td>
                                             <td class="text-center"><?= $a['alpha'] ?></td>
                                             <td class="text-dark text-center">
                                                 <div id="jumlah"></div>

@@ -7,6 +7,7 @@ class Employee extends CI_Controller
     {
         parent::__construct();
         $this->load->library('pdf');
+        $this->load->library('datatables');
         $this->load->model('Employee_model', 'employee');
         is_logged_in();
     }
@@ -16,7 +17,8 @@ class Employee extends CI_Controller
         $data['title'] = "Pegawai";
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
 
-        $data['employee'] = $this->employee->getEmployee();
+        // $data['employee'] = $this->employee->getEmployee();
+        // $data['position'] = $this->employee->get_position();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
@@ -24,6 +26,13 @@ class Employee extends CI_Controller
         $this->load->view('employee/index', $data);
         $this->load->view('templates/footer');
     }
+
+    public function get_employee_json()
+    {
+        header('Content-Type: application/json');
+        echo $this->employee->getEmployee();
+    }
+
 
     public function addemployee()
     {
@@ -151,16 +160,20 @@ class Employee extends CI_Controller
 
     public function deleteEmployee($id)
     {
-        //hapus user
-        $this->db->where('id', $id);
-        $this->db->delete('user');
+        if ($this->session->userdata('user_id') === $id) {
+            $this->session->set_flashdata('gagal', '<div class="alert alert-info">Ini data kamu!</div>');
+            redirect('employee');
+        } else {
+            //hapus user
+            $this->db->where('id', $id);
+            $this->db->delete('user');
 
-        //hapus pegawai
-        $this->db->where('user_id', $id);
-        $this->db->delete('employee');
-
-        $this->session->set_flashdata('message', 'Data pegawai berhasil dihapus!');
-        redirect('employee/index');
+            //hapus pegawai
+            $this->db->where('user_id', $id);
+            $this->db->delete('employee');
+            $this->session->set_flashdata('message', 'Data pegawai berhasil dihapus!');
+            redirect('employee');
+        }
     }
 
     // public function printPDF()

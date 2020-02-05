@@ -124,7 +124,7 @@
                             <select class="form-control" name="position" id="position">
                                 <option value="">Pilih jabatan...</option>
                                 <?php foreach ($position as $p) : ?>
-                                    <option value="<?= $p['id']; ?>" <?= set_select('position', $p['id']); ?>><?= $p['name_position']; ?></option>
+                                    <option value="<?= $p['id_position']; ?>" <?= set_select('position', $p['id_position']); ?>><?= $p['name_position']; ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <?php echo form_error('position', '<small class="text-danger pl-3">', '</small>'); ?>

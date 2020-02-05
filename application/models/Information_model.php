@@ -5,10 +5,7 @@ class Information_model extends CI_Model
 {
     public function getInformation()
     {
-        $this->db->select('information.*, employee.name');
-        $this->db->from('information');
-        $this->db->join('employee', 'employee.user_id = information.user_id');
-        return $this->db->get()->result_array();
+        return $this->db->get('information')->result_array();
     }
 
     public function getInformationById($id)

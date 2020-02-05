@@ -3,6 +3,36 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Employee_model extends CI_Model
 {
+    public function get_position()
+    { //ambil data kategori dari table kategori
+        $result = $this->db->get('position');
+        return $result;
+    }
+
+    public function getEmployee()
+    {
+        //ambil data barang dari table barang yang akan di generate ke datatable
+        $this->datatables->select('id,user_id,e_id_number,name,sex,email,name_position');
+        $this->datatables->from('employee');
+        $this->datatables->join('position', 'id_position = position_id');
+        $detail = base_url('employee/detail/$3');
+        $edit = base_url('employee/edit/$1');
+        $hapus = base_url('employee/deleteEmployee/$2');
+        $this->datatables->add_column('action', "<a href='$detail' class='badge badge-info'>Detail</a>  <a href='$edit' class='badge badge-warning'>Edit</a> <a href='$hapus' class='badge badge-danger delete'>Hapus</a>", 'id, user_id,e_id_number');
+        return $this->datatables->generate();
+    }
+
+    // public function getEmployee()
+    // {
+    //     $query = "SELECT `employee`.*, `position`.`name_position`
+    //               FROM `employee` 
+    //               INNER JOIN `position`
+    //               ON `employee`.`position_id` = `position`.`id`  
+    //             ";
+
+    //     return $this->db->query($query)->result_array();
+    // }
+
     public function addEmployee()
     {
         $email = $this->input->post('email', true);
@@ -18,7 +48,8 @@ class Employee_model extends CI_Model
             'name' => htmlspecialchars($this->input->post('name', true)),
             'email' => htmlspecialchars($email),
             'password' => password_hash($password, PASSWORD_DEFAULT),
-            'role_id' => 2
+            'role_id' => 2,
+            'is_active' => 1
         );
 
         //input user
@@ -53,7 +84,7 @@ class Employee_model extends CI_Model
     {
         $query = "SELECT `employee`.*, `position`.`name_position`, `group`.`name_group`
                     FROM `employee` 
-                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`  
+                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`  
                     INNER JOIN `group` ON `employee`.`group_id` = `group`.`id`  
                     WHERE `employee`.`e_id_number`= $e_id_number   
                 ";
@@ -61,23 +92,13 @@ class Employee_model extends CI_Model
         return $this->db->query($query)->row_array();
     }
 
-    public function getEmployee()
-    {
-        $query = "SELECT `employee`.*, `position`.`name_position`
-                  FROM `employee` 
-                  INNER JOIN `position`
-                  ON `employee`.`position_id` = `position`.`id`  
-                ";
-
-        return $this->db->query($query)->result_array();
-    }
 
     public function getEmployeeByUser()
     {
         $id = $this->session->userdata('e_id_number');
         $query = "SELECT `employee`.*, `position`.`name_position`, `group`.`name_group` AS `name_group`
                   FROM `employee` 
-                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`  
+                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`  
                   INNER JOIN `group` ON `employee`.`group_id` = `group`.`id`  
                   WHERE `employee`.`e_id_number`= $id
                 ";
@@ -115,7 +136,7 @@ class Employee_model extends CI_Model
         $query = "SELECT `absent`.*, `employee`.`name`, `employee`.`position_id`, `position`.`name_position`
                   FROM `absent` 
                   INNER JOIN `employee` ON `absent`.`employee_id` = `employee`.`e_id_number`  
-                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`  
+                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`  
                   WHERE `absent`.`month` = '$month' 
                 ";
 
@@ -132,7 +153,7 @@ class Employee_model extends CI_Model
     {
         $query = "SELECT `employee`.*, `position`.`name_position`
                   FROM `employee`
-                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`  
+                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`  
                   WHERE NOT EXISTS (
                       SELECT * FROM `absent` WHERE `absent`.`month` = '$month' AND `employee`.`e_id_number` = `absent`.`employee_id` 
                   )
@@ -152,7 +173,7 @@ class Employee_model extends CI_Model
         $month = $this->uri->segment(3);
         $query = "SELECT `employee`.*, `absent`.*, `position`.`name_position`
                   FROM `employee`
-                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`  
+                  INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`  
                   INNER JOIN `absent` ON `employee`.`e_id_number` = `absent`.`employee_id`  
                   WHERE `absent`.`month` = '$month' 
                 ";
@@ -264,7 +285,7 @@ class Employee_model extends CI_Model
                     FROM `employee`
                     INNER JOIN `absent` ON `absent`.`employee_id` = `employee`.`e_id_number`
                     INNER JOIN `group` ON `group`.`id` = `employee`.`group_id`
-                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`
+                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`
                     WHERE `absent`.`month` = '$month'
                 ";
 
@@ -285,7 +306,7 @@ class Employee_model extends CI_Model
                     FROM `employee`
                     INNER JOIN `absent` ON `absent`.`employee_id` = `employee`.`e_id_number`
                     INNER JOIN `group` ON `group`.`id` = `employee`.`group_id`
-                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id`
+                    INNER JOIN `position` ON `employee`.`position_id` = `position`.`id_position`
                     WHERE `absent`.`id` = '$id'
                 ";
 

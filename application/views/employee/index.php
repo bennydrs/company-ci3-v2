@@ -8,6 +8,8 @@
     <?php if ($this->session->flashdata('message')) : ?>
     <?php endif; ?>
 
+    <?php echo $this->session->flashdata('gagal'); ?>
+
 
 
     <div class="row">
@@ -22,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-hover display" id="dataTable" width="100%" cellspacing="0">
+                        <!-- <table class="table table-hover display" id="mytable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -51,10 +53,25 @@
                                     <?php $i++; ?>
                                 <?php endforeach; ?>
                             </tbody>
+                        </table> -->
+
+                        <table class="table table-striped" id="mytable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>NIP</th>
+                                    <th>Nama</th>
+                                    <th>Jabatan</th>
+                                    <th>Email</th>
+                                    <th>Jenis Kelamin</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
                         </table>
                     </div>
                 </div>
             </div>
+
 
 
         </div>
@@ -65,3 +82,95 @@
 
 </div>
 <!-- End of Main Content -->
+<script>
+    $(document).ready(function() {
+        // Setup datatables
+        $.fn.dataTableExt.oApi.fnPagingInfo = function(oSettings) {
+            return {
+                "iStart": oSettings._iDisplayStart,
+                "iEnd": oSettings.fnDisplayEnd(),
+                "iLength": oSettings._iDisplayLength,
+                "iTotal": oSettings.fnRecordsTotal(),
+                "iFilteredTotal": oSettings.fnRecordsDisplay(),
+                "iPage": Math.ceil(oSettings._iDisplayStart / oSettings._iDisplayLength),
+                "iTotalPages": Math.ceil(oSettings.fnRecordsDisplay() / oSettings._iDisplayLength)
+            };
+        };
+
+        var table = $("#mytable").dataTable({
+            initComplete: function() {
+                var api = this.api();
+                $('#mytable_filter input')
+                    .off('.DT')
+                    .on('input.DT', function() {
+                        api.search(this.value).draw();
+                    });
+            },
+            oLanguage: {
+                sProcessing: "loading..."
+            },
+            processing: true,
+            serverSide: true,
+            ajax: {
+                "url": "<?php echo base_url('employee/get_employee_json') ?>",
+                "type": "POST"
+            },
+            columns: [{
+                    "data": "id"
+                },
+                {
+                    "data": "e_id_number"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": "name_position"
+                },
+                {
+                    "data": "email"
+                },
+                {
+                    "data": "sex"
+                },
+                {
+                    "data": "action"
+                }
+            ],
+            order: [
+                [1, 'asc']
+            ],
+            rowCallback: function(row, data, iDisplayIndex) {
+                var info = this.fnPagingInfo();
+                var page = info.iPage;
+                var length = info.iLength;
+                var index = page * length + (iDisplayIndex + 1);
+                $('td:eq(0)', row).html(index);
+            }
+
+        });
+        // end setup datatables
+
+        // get delete Records
+        $('#mytable').on('click', '.delete', function(e) {
+            e.preventDefault();
+            const href = $(this).attr('href');
+
+            Swal({
+                title: 'Are you sure?',
+                text: "One delete, you will not be able to recover this file",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Delete Data!'
+            }).then((result) => {
+                if (result.value) {
+                    document.location.href = href;
+                }
+            })
+
+        });
+        // End delete Records
+    });
+</script>

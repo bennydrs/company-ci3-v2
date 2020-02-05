@@ -41,12 +41,12 @@
 <!-- Bootstrap core JavaScript-->
 <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="<?= base_url('assets/'); ?>sweetalert/js/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="<?= base_url('assets/'); ?>sweetalert/js/myscript.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
-<script src="<?= base_url('assets/'); ?>sweetalert/js/sweetalert2.all.min.js"></script>
 <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
-<script src="<?= base_url('assets/'); ?>sweetalert/js/myscript.js"></script>
 <script src="<?= base_url('assets/'); ?>editable/js/bootstrap-editable.min.js"></script>
 
 <script>
@@ -104,6 +104,53 @@
     //     });
     // });
 </script>
+
+<!-- <script type="text/javascript">
+    var save_method; //for save method string
+    var table;
+
+    $(document).ready(function() {
+        //datatables
+        table = $('#mytable').DataTable({
+            "processing": true, //Feature control the processing indicator.
+            "serverSide": true, //Feature control DataTables' server-side processing mode.
+            "order": [], //Initial no order.
+            // Load data for the table's content from an Ajax source
+            "ajax": {
+                "url": '<?php echo base_url('employee/get_employee_json'); ?>',
+                "type": "POST"
+            },
+            //Set column definition initialisation properties.
+            "columns": [{
+                    "data": "e_id_number",
+                    width: 100
+                },
+                {
+                    "data": "name",
+                    width: 100
+                },
+                {
+                    "data": "name_position",
+                    width: 100
+                },
+                {
+                    "data": "email",
+                    width: 100
+                },
+                {
+                    "data": "sex",
+                    width: 100
+                },
+                {
+                    "data": "action",
+                    width: 100
+                }
+            ],
+
+        });
+
+    });
+</script> -->
 
 
 

@@ -109,10 +109,10 @@
 
         $("table").on("change", "input", function() {
             var row = $(this).closest("tr");
-            var qty = parseFloat(row.find("#present").val());
-            var price = parseFloat(row.find("#permission").val());
-            var x = parseFloat(row.find("#alpha").val());
-            var total = qty + price + x;
+            var present = parseFloat(row.find("#present").val());
+            var permission = parseFloat(row.find("#permission").val());
+            var alpha = parseFloat(row.find("#alpha").val());
+            var total = present + permission + alpha;
             row.find("#total").val(isNaN(total) ? "" : total);
         });
     })();
