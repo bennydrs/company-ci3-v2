@@ -196,6 +196,7 @@ class Employee_model extends CI_Model
                 "employee_id" => $value,
                 "present" => $present[$key],
                 "permission" => $permission[$key],
+                "sick" => $sick[$key],
                 "alpha" => $alpha[$key],
                 // "total_absent" => $total[$key],
                 "lembur" => $lembur[$key],
@@ -214,6 +215,7 @@ class Employee_model extends CI_Model
                 "id" => $id[$key],
                 "present" => $present[$key],
                 "permission" => $permission[$key],
+                "sick" => $sick[$key],
                 "alpha" => $alpha[$key],
                 // "total_absent" => $total[$key],
                 "lembur" => $lembur[$key],
@@ -224,6 +226,7 @@ class Employee_model extends CI_Model
             $this->db->set('lembur', $data['lembur']);
             // $this->db->set('total_absent', $data['total_absent']);
             $this->db->set('permission', $data['permission']);
+            $this->db->set('sick', $data['sick']);
             $this->db->set('alpha', $data['alpha']);
             $this->db->set('present', $data['present']);
             $this->db->where('id', $data['id']);
@@ -315,7 +318,7 @@ class Employee_model extends CI_Model
 
     public function absenChart()
     {
-        $query = "SELECT month, SUM(present) as present, SUM(permission) as permission, SUM(alpha) as alpha
+        $query = "SELECT month, SUM(present) as present, SUM(permission) as permission, SUM(sick) as sick, SUM(alpha) as alpha
             FROM absent 
             WHERE SUBSTRING(month,1,4) = date('Y')
             GROUP BY month

@@ -53,6 +53,7 @@
                             <th scope="col" class="text-center">Jabatan</th>
                             <th scope="col" class="text-center">Hadir</th>
                             <th scope="col" class="text-center">Izin</th>
+                            <th scope="col" class="text-center">Sakit</th>
                             <th scope="col" class="text-center">Alpha</th>
                             <th scope="col" class="text-center">Total Absen</th>
                             <th scope="col" class="text-center">Lembur (m)</th>
@@ -73,6 +74,7 @@
                                 <td> <?= $a['name_position']; ?></td>
                                 <td><input type="number" class="form-control" max="31" id="present" name="present[]" value="0"></td>
                                 <td><input type="number" class="form-control" max="31" id="permission" name="permission[]" value="0"></td>
+                                <td><input type="number" class="form-control" max="31" id="sick" name="sick[]" value="0"></td>
                                 <td><input type="number" class="form-control" max="31" id="alpha" name="alpha[]" value="0"></td>
                                 <td><input type="number" class="form-control readonly" max="31" id="total" name="total[]" value="0"></td>
                                 <td><input type="number" class="form-control" max="2400" id="lembur" name="lembur[]" value="0"></td>
@@ -111,8 +113,9 @@
             var row = $(this).closest("tr");
             var present = parseFloat(row.find("#present").val());
             var permission = parseFloat(row.find("#permission").val());
+            var sick = parseFloat(row.find("#sick").val());
             var alpha = parseFloat(row.find("#alpha").val());
-            var total = present + permission + alpha;
+            var total = present + permission + sick + alpha;
             row.find("#total").val(isNaN(total) ? "" : total);
         });
     })();

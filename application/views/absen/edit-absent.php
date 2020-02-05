@@ -21,6 +21,7 @@
                     <th scope="col">Jabatan</th>
                     <th scope="col">Hadir</th>
                     <th scope="col">Izin</th>
+                    <th scope="col">Sakit</th>
                     <th scope="col">Alpha</th>
                     <th scope="col">Total</th>
                     <th scope="col">Lembur</th>
@@ -43,6 +44,7 @@
                         <td> <?= $a['name_position']; ?></td>
                         <td><input type="number" class="form-control" name="present[]" max="26" id="present" value="<?= $a['present']; ?>"></td>
                         <td><input type="number" class="form-control" name="permission[]" max="26" id="permission" value="<?= $a['permission']; ?>"></td>
+                        <td><input type="number" class="form-control" name="sick[]" max="26" id="sick" value="<?= $a['sick']; ?>"></td>
                         <td><input type="number" class="form-control" name="alpha[]" max="26" id="alpha" value="<?= $a['alpha']; ?>"></td>
                         <?php $total = $a['present'] + $a['permission'] + $a['alpha'] ?>
                         <td><input type="number" class="form-control readonly" name="total[]" max="26" value="<?= $total; ?>" id="total">
@@ -59,6 +61,7 @@
             <tr>
                 <td colspan="9">
                     <input type="submit" class="btn btn-success" value="Simpan Edit" name="save">
+                    <a href="<?= base_url('employee/absent/?month=' . $date); ?>" class="btn btn-warning">Batal</a>
                 </td>
             </tr>
 
@@ -78,10 +81,11 @@
 
         $("table").on("change", "input", function() {
             var row = $(this).closest("tr");
-            var qty = parseFloat(row.find("#present").val());
-            var price = parseFloat(row.find("#permission").val());
-            var x = parseFloat(row.find("#alpha").val());
-            var total = qty + price + x;
+            var present = parseFloat(row.find("#present").val());
+            var permission = parseFloat(row.find("#permission").val());
+            var sick = parseFloat(row.find("#sick").val());
+            var alpha = parseFloat(row.find("#alpha").val());
+            var total = present + permission + sick + alpha;
             row.find("#total").val(isNaN(total) ? "" : total);
         });
     })();

@@ -86,7 +86,7 @@
                                                 <?php
                                                 $menit = $a['lembur'];
                                                 // $jam = intdiv($menit, 60) . ' jam ' . ($menit % 60) . ' menit';
-                                                $h = round($menit / 60, 2);
+                                                $h = round($menit / 60, 1);
                                                 echo $h;
                                                 ?>
                                             </td>
@@ -96,7 +96,7 @@
                                 </tbody>
                                 <?php if ($absent_n > 0) : ?>
                                     <tr>
-                                        <td colspan="9">
+                                        <td colspan="11">
                                             <a href="<?= base_url('employee/editAbsent/') . $month; ?>" class="btn btn-success">Edit Data Absen</a>
                                         </td>
                                     </tr>

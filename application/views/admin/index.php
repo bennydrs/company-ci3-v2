@@ -108,6 +108,7 @@ foreach ($absen as $result) {
     $month[] = $result['month']; //ambil bulan
     $present[] = (float) $result['present']; //ambil nilai
     $permission[] = (float) $result['permission']; //ambil nilai
+    $sick[] = (float) $result['sick']; //ambil nilai
     $alpha[] = (float) $result['alpha']; //ambil nilai
 }
 /* end mengambil query*/
@@ -155,6 +156,11 @@ foreach ($absen as $result) {
         }, {
             name: 'Izin',
             data: <?= json_encode($permission) ?>
+
+
+        }, {
+            name: 'Sick',
+            data: <?= json_encode($sick) ?>
 
 
         }, {

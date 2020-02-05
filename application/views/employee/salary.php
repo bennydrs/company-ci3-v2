@@ -71,9 +71,10 @@
 
                                                     $total_absen = $a['present'] + $a['permission'] + $a['alpha'];
                                                     $total_lembur = $a['overtime'] * $a['lembur'];
+                                                    $jam_lembur = round($total_lembur / 60, 1);
                                                     $uang_makan = $a['meal'] * $a['present'];
 
-                                                    $pendapatan = $a['salary'] + $a['tj_married'] + $total_lembur + $uang_makan;
+                                                    $pendapatan = $a['salary'] + $a['tj_married'] + $jam_lembur + $uang_makan;
 
                                                     $alpha_cut = $a['alpha'] * $a['alpha_cuts'];
                                                     // $permission_cut = $a['permission'] * $a['permission_cuts'];
@@ -93,7 +94,7 @@
                                                             <td><?= rupiah($a['salary']) ?></td>
                                                             <td><?= rupiah($a['tj_married']) ?></td>
                                                             <td><?= rupiah($uang_makan) ?></td>
-                                                            <td><?= rupiah($total_lembur); ?></td>
+                                                            <td><?= rupiah($jam_lembur); ?></td>
                                                             <td><?= rupiah($pendapatan); ?></td>
                                                             <td><?= rupiah($alpha_cut); ?></td>
                                                             <td class="text-dark"><?= rupiah($total); ?></td>

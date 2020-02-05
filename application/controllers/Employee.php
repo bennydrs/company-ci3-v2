@@ -176,15 +176,6 @@ class Employee extends CI_Controller
         }
     }
 
-    // public function printPDF()
-    // {
-    //     $data['employee'] = $this->employee->getEmployee();
-    //     $view = $this->load->view('Print/employeePDF', $data, TRUE);
-    //     $mpdf->WriteHTML($view);
-    //     // $mpdf->WriteHTML('besok libur');
-    //     $mpdf->Output();
-    // }
-
     public function position()
     {
         $data['title'] = "Jabatan";
