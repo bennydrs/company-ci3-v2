@@ -152,10 +152,10 @@
                     <select class="form-control" name="position">
                         <option value="">Pilih Jabatan...</option>
                         <?php foreach ($position as $p) : ?>
-                            <?php if ($p['id'] == $user['position_id']) : ?>
-                                <option value="<?= $p['id']; ?>" selected><?= $p['name_position']; ?></option>
+                            <?php if ($p['id_position'] == $user['position_id']) : ?>
+                                <option value="<?= $p['id_position']; ?>" selected><?= $p['name_position']; ?></option>
                             <?php else : ?>
-                                <option value="<?= $p['id']; ?>"><?= $p['name_position']; ?></option>
+                                <option value="<?= $p['id_position']; ?>"><?= $p['name_position']; ?></option>
                             <?php endif; ?>
                         <?php endforeach; ?>
                     </select>
