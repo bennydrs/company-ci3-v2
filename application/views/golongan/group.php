@@ -13,44 +13,51 @@
 
     <div class="row">
         <div class="col-lg">
-            <!-- <?= form_error('group', '<div class="alert alert-danger" role="alert">', '</div>');  ?> -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Data Golongan</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <?= form_error('name_group', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 
-            <?= form_error('name_group', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
+                        <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newGroupModal">Tambah Golongan</a>
 
-            <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newGroupModal">Add New Group</a>
+                        <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nama Golongan</th>
+                                    <th scope="col">Tunjangan Nikah</th>
+                                    <th scope="col">Uang Makan</th>
+                                    <th scope="col">Uang Lembur</th>
+                                    <th scope="col">Potongan</th>
+                                    <th scope="col">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php $i = 1; ?>
+                                <?php foreach ($group as $g) : ?>
+                                    <tr>
+                                        <th scope="row"><?= $i;  ?></th>
+                                        <td><?= $g['name_group'] ?></td>
+                                        <td><?= rupiah($g['tj_married']) ?></td>
+                                        <td><?= rupiah($g['meal']) ?></td>
+                                        <td><?= rupiah($g['overtime']) ?></td>
+                                        <td><?= rupiah($g['alpha_cuts']) ?></td>
 
-            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Name Group</th>
-                        <th scope="col">Tj Married</th>
-                        <th scope="col">Meal Money</th>
-                        <th scope="col">Overtime</th>
-                        <th scope="col">Alpha Cut</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $i = 1; ?>
-                    <?php foreach ($group as $g) : ?>
-                        <tr>
-                            <th scope="row"><?= $i;  ?></th>
-                            <td><?= $g['name_group'] ?></td>
-                            <td><?= rupiah($g['tj_married']) ?></td>
-                            <td><?= rupiah($g['meal']) ?></td>
-                            <td><?= rupiah($g['overtime']) ?></td>
-                            <td><?= rupiah($g['alpha_cuts']) ?></td>
-
-                            <td>
-                                <a href="" data-toggle="modal" data-target="#editGroupModal<?= $g['id'];  ?>" class="badge badge-success">Edit</a>
-                                <a href="<?= base_url('employee/delete_group/') . $g['id']; ?>" class="badge badge-danger delete">Delete</a>
-                            </td>
-                        </tr>
-                        <?php $i++; ?>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+                                        <td>
+                                            <a href="" data-toggle="modal" data-target="#editGroupModal<?= $g['id'];  ?>" class="badge badge-success">Edit</a>
+                                            <a href="<?= base_url('employee/delete_group/') . $g['id']; ?>" class="badge badge-danger delete">Delete</a>
+                                        </td>
+                                    </tr>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -65,7 +72,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newGroupModalLabel">Add New Group</h5>
+                <h5 class="modal-title" id="newGroupModalLabel">Tambah Golongan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -73,7 +80,7 @@
             <form action="<?= base_url('employee/group'); ?>" method="post" class="needs-validation" novalidate>
                 <div class="modal-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="name_group" name="name_group" placeholder="group name" value="<?= set_value('name_group') ?>" required>
+                        <input type="text" class="form-control" id="name_group" name="name_group" placeholder="Nama golongan" value="<?= set_value('name_group') ?>" required>
 
                     </div>
                     <div class="form-group">
@@ -81,7 +88,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="text" class="form-control money" id="tj_married" name="tj_married" placeholder="Tunjangan Married" value="<?= set_value('tj_married') ?>" required>
+                            <input type="text" class="form-control money" id="tj_married" name="tj_married" placeholder="Tunjangan nikah" value="<?= set_value('tj_married') ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -89,7 +96,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="text" class="form-control money" id="meal" name="meal" placeholder="Meal money" value="<?= set_value('meal') ?>" required>
+                            <input type="text" class="form-control money" id="meal" name="meal" placeholder="Uang makan" value="<?= set_value('meal') ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -97,7 +104,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="text" class="form-control money" id="overtime" name="overtime" placeholder="Overtime money" value="<?= set_value('overtime') ?>" required>
+                            <input type="text" class="form-control money" id="overtime" name="overtime" placeholder="Uang lembur" value="<?= set_value('overtime') ?>" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,13 +112,13 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">Rp.</div>
                             </div>
-                            <input type="text" class="form-control money" id="alpha_cut" name="alpha_cut" placeholder="Alpha cut money" value="<?= set_value('alpha_cut') ?>" required>
+                            <input type="text" class="form-control money" id="alpha_cut" name="alpha_cut" placeholder="potongan" value="<?= set_value('alpha_cut') ?>" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary save">Add</button>
+                    <button type="submit" class="btn btn-primary save">Simpan</button>
                 </div>
             </form>
         </div>
@@ -125,7 +132,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editGroupModalLabel">Edit Group</h5>
+                    <h5 class="modal-title" id="editGroupModalLabel">Edit Golongan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -179,3 +186,5 @@
         </div>
     </div>
 <?php endforeach; ?>
+
+<?php $this->load->view('templates/load/load_mask'); ?>

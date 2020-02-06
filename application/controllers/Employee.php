@@ -377,10 +377,9 @@ class Employee extends CI_Controller
         $data['title'] = "Golongan";
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
 
-        // $data['leave'] = $this->employee->getLeave();
         $data['group'] = $this->db->get('group')->result_array();
 
-        $this->form_validation->set_rules('name_group', 'Name group', 'required|trim|is_unique[group.name_group]', array('is_unique' => 'This ID has already registered'));
+        $this->form_validation->set_rules('name_group', 'Nama golongan', 'required|trim|is_unique[group.name_group]', array('is_unique' => 'Nama golongan sudah ada'));
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/sidebar', $data);
