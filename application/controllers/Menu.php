@@ -6,6 +6,7 @@ class Menu extends CI_Controller
     public function __construct()
     {
         parent::__construct();
+        $this->load->model('menu_model', 'menu');
         is_logged_in();
     }
 
@@ -14,7 +15,7 @@ class Menu extends CI_Controller
         $data['title'] = "Menu Management";
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
 
-        $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data['menu'] = $this->menu->getMenu();
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -34,7 +35,7 @@ class Menu extends CI_Controller
     public function editMenu()
     {
         $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
-        $data['menu'] = $this->db->get('user_menu')->result_array();
+        $data['menu'] = $this->menu->getMenu();
 
         $this->form_validation->set_rules('menu', 'Menu', 'required');
 
@@ -136,5 +137,36 @@ class Menu extends CI_Controller
         $this->db->delete('user_sub_menu');
         redirect('menu/subMenu');
         $this->session->set_flashdata('message', 'submenu deleted');
+    }
+
+    public function sortSubMenu()
+    {
+        $data['title'] = "Atur Menu";
+        $data['user'] = $this->db->get_where('employee', ['e_id_number' => $this->session->userdata('e_id_number')])->row_array();
+        $data['submenu'] = $this->menu->getSubMenu();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('menu/sortSubMenu', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function updateSortMenu()
+    {
+        // $menu = $this->db->get('user_sub_menu');
+        $menu = $this->menu->getSubMenu();
+
+        foreach ($menu as $task) {
+            // $task->timestamps = false; // To disable update_at field updation
+            $id = $task['id'];
+
+            foreach ($this->input->post('order') as $order) {
+                if ($order['id'] == $id) {
+                    $this->db->where('id', $order['id']);
+                    $this->db->update('user_sub_menu', ['order_by' => $order['position']]);
+                    $this->session->set_flashdata('message', 'Urutan menu berhasil diubah');
+                }
+            }
+        }
     }
 }

@@ -18,6 +18,7 @@
 
 
             <a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#newSubmenuModal">Add New Submenu</a>
+            <a href="<?= base_url('menu/sortSubMenu') ?>" class="btn btn-warning mb-3">Atur</a>
 
             <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead>

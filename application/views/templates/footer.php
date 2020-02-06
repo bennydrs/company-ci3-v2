@@ -39,6 +39,7 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
+<script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url('assets/'); ?>vendor/jquery-easing/jquery.easing.min.js"></script>
 <script src="<?= base_url('assets/'); ?>sweetalert/js/sweetalert2.all.min.js"></script>
