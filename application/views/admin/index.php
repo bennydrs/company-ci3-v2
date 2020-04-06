@@ -71,11 +71,11 @@
             <h6 class="m-0 font-weight-bold text-primary">Bar Chart</h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <div class="chart-bar">
-                    <div id="chart">
-                    </div>
+            <!-- <div class="table-responsive"> -->
+            <div class="chart-bar">
+                <div id="chart">
                 </div>
+                <!-- </div> -->
             </div>
         </div>
     </div>
@@ -87,6 +87,9 @@
 <!-- End of Main Content -->
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <?php
 /* Mengambil query report*/
 foreach ($absen as $result) {
